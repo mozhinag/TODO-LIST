@@ -35,3 +35,13 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`.bgBlue.bold.white)
 })
+
+
+
+
+ // "scripts": {
+
+  //   "build": "npm install --prefix frontend --include=dev && npm run build --prefix        frontend && npm install --prefix backend",
+  //   "start": "node backend/server.js",
+  //   "dev": "concurrently -n FRONTEND,BACKEND -c cyan,magenta \"npm run dev --prefix frontend\" \"npm run server --prefix backend\""
+  // },
