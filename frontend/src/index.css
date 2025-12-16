@@ -271,3 +271,58 @@ form .icon-btn:hover {
   justify-content: center;
   gap: 10px; /* space between edit & delete */
 }
+/* =========================
+   PAGINATION
+========================= */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.pagination button {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #e5e7eb;
+  color: #374151;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Page numbers */
+.page-number:hover {
+  background: #c7d2fe;
+  color: #1e3a8a;
+}
+
+/* Active page */
+.page-number.active {
+  background: #4f46e5;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+
+/* Prev / Next buttons */
+.page-nav {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.page-nav:hover:not(:disabled) {
+  background: #bae6fd;
+}
+
+/* Disabled state */
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

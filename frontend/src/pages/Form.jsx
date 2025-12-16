@@ -47,20 +47,58 @@ function Form() {
     }));
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
 
-    const action = editingTodo
-      ? updateTodo({ id: editingTodo._id, ...formData })
-      : addTodo(formData);
+  //   const action = editingTodo
+  //     ? updateTodo({ id: editingTodo._id, ...formData })
+  //     : addTodo(formData);
 
-    const result = await dispatch(action);
+  //   const result = await dispatch(action);
 
-    if (addTodo.fulfilled.match(result) || updateTodo.fulfilled.match(result)) {
-      dispatch(reset());
-      navigate('/');
+  //   if (addTodo.fulfilled.match(result) || updateTodo.fulfilled.match(result)) {
+  //     dispatch(reset());
+  //     navigate('/');
+  //   }
+  // };
+const onSubmit = async (e) => {
+  e.preventDefault();
+
+  // 🟡 DATE VALIDATION (EDIT-SAFE)
+  if (formData.date) {
+    const selectedDate = new Date(formData.date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Check if date is changed during edit
+    const originalDate = editingTodo ? editingTodo.date?.split('T')[0] : null;
+
+    const isDateChanged = !editingTodo || formData.date !== originalDate;
+
+    if (isDateChanged && selectedDate < today) {
+      alert('Due date cannot be in the past');
+      return;
     }
-  };
+  }
+
+  const payload = editingTodo
+    ? {
+        id: editingTodo._id,
+        task: formData.task || editingTodo.task,
+        date: formData.date || editingTodo.date,
+        completed: formData.completed,
+      }
+    : formData;
+
+  const result = await dispatch(
+    editingTodo ? updateTodo(payload) : addTodo(payload)
+  );
+
+  if (addTodo.fulfilled.match(result) || updateTodo.fulfilled.match(result)) {
+    dispatch(reset());
+    navigate('/');
+  }
+};
 
   return (
     <form onSubmit={onSubmit}>
